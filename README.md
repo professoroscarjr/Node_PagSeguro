@@ -8,7 +8,7 @@ npm init -y
 npm install express axios dotenv cors body-parser
 
 ## Estrutura do Projeto
-├── .gitignore 
+├── .gitignore
 ├── package.json 
 ├── client/ 
 │ └── index.html 

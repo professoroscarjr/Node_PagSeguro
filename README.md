@@ -46,17 +46,17 @@ npm install express axios dotenv cors body-parser
    cd Projeto-Node-PgSeguro2
 
 
-###Instale as dependências:
+### Instale as dependências:
 
 npm install
 
-###Configure as variáveis de ambiente no arquivo server/.env:
+### Configure as variáveis de ambiente no arquivo server/.env:
 
 PAGSEGURO_EMAIL=seu-email@dominio.com
 PAGSEGURO_TOKEN=seu-token-do-pagseguro
 
 
-###Executando o Projeto
+### Executando o Projeto
 
 node server/server.js
 

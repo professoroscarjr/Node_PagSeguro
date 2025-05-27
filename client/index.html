@@ -6,12 +6,68 @@
     <title>Checkout PagSeguro</title>
     <script
         src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        pre {
+            margin-top: 20px;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Pagamento</h1>
+   
     <form id="form">
+        <h1>Pagamento</h1>  
         <input type="text" id="senderName" placeholder="Nome no cartão" required><br>
         <input type="email" id="senderEmail" placeholder="E-mail" required><br>
         <input type="text" id="cardNumber" placeholder="Número do cartão" required><br>
@@ -25,7 +81,7 @@
     <pre id="response"></pre>
 
     <script>
-       window.onload = async () => {
+        window.onload = async () => {
             const res = await fetch('/session');
             const { sessionId } = await res.json();
 
@@ -73,9 +129,7 @@
                     document.getElementById('response').textContent = JSON.stringify(err, null, 2);
                 }
             });
-        });
-
-       
+        };
     </script>
 </body>
 

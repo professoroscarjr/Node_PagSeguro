@@ -2,6 +2,11 @@
 
 Este projeto é uma aplicação de exemplo para integração com o PagSeguro, utilizando Node.js no backend e uma interface simples em HTML no frontend.
 
+### Instale as dependencias
+
+npm init -y
+npm install express axios dotenv cors body-parser
+
 ## Estrutura do Projeto
 ├── .gitignore 
 ├── package.json 

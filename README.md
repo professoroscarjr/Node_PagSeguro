@@ -4,6 +4,8 @@ Este projeto é uma aplicação de exemplo para integração com o PagSeguro, ut
 
 ### Instale as dependencias
 
+npm install
+
 npm init -y
 
 npm install express axios dotenv cors body-parser
@@ -46,10 +48,6 @@ npm install express axios dotenv cors body-parser
    git clone <url-do-repositorio>
    cd Projeto-Node-PgSeguro2
 
-
-### Instale as dependências:
-
-npm install
 
 ### Configure as variáveis de ambiente no arquivo server/.env:
 

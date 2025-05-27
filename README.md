@@ -5,6 +5,7 @@ Este projeto é uma aplicação de exemplo para integração com o PagSeguro, ut
 ### Instale as dependencias
 
 npm init -y
+
 npm install express axios dotenv cors body-parser
 
 ## Estrutura do Projeto

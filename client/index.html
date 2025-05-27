@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Checkout PagSeguro</title>
+    <script
+        src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+
+</head>
+
+<body>
+    <h1>Pagamento</h1>
+    <form id="form">
+        <input type="text" id="senderName" placeholder="Nome no cartão" required><br>
+        <input type="email" id="senderEmail" placeholder="E-mail" required><br>
+        <input type="text" id="cardNumber" placeholder="Número do cartão" required><br>
+        <input type="text" id="cvv" placeholder="CVV" required><br>
+        <input type="text" id="expMonth" placeholder="Mês (MM)" required>
+        <input type="text" id="expYear" placeholder="Ano (AAAA)" required><br>
+        <input type="text" id="amount" placeholder="Valor (ex: 100.00)" required><br>
+        <button type="submit">Pagar</button>
+    </form>
+
+    <pre id="response"></pre>
+
+    <script>
+       window.onload = async () => {
+            const res = await fetch('/session');
+            const { sessionId } = await res.json();
+
+            if (typeof PagSeguroDirectPayment !== 'undefined') {
+                PagSeguroDirectPayment.setSessionId(sessionId);
+            } else {
+                console.error('SDK PagSeguro não carregado.');
+            }
+        };
+
+        document.getElementById('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const cardNumber = document.getElementById('cardNumber').value;
+            const brand = await new Promise((resolve, reject) => {
+                PagSeguroDirectPayment.getBrand({
+                    cardBin: cardNumber.substring(0, 6),
+                    success: res => resolve(res.brand.name),
+                    error: err => reject(err),
+                });
+            });
+
+            PagSeguroDirectPayment.createCardToken({
+                cardNumber,
+                brand,
+                cvv: document.getElementById('cvv').value,
+                expirationMonth: document.getElementById('expMonth').value,
+                expirationYear: document.getElementById('expYear').value,
+                success: async function (response) {
+                    const token = response.card.token;
+                    const senderName = document.getElementById('senderName').value;
+                    const senderEmail = document.getElementById('senderEmail').value;
+                    const amount = document.getElementById('amount').value;
+
+                    const res = await fetch('/pagar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ token, senderName, senderEmail, amount }),
+                    });
+
+                    const result = await res.text();
+                    document.getElementById('response').textContent = result;
+                },
+                error: function (err) {
+                    document.getElementById('response').textContent = JSON.stringify(err, null, 2);
+                }
+            });
+        });
+
+       
+    </script>
+</body>
+
+</html>
